@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>UserProfileForm</title>
+</head>
+<body>
+
+    <div class="container" style="margin-top: 30px;">
+        <div class="panel panel-default">
+            
+            <div class="panel-heading">
+                <h2>Profile List</h2>
+            </div>
+    
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Profile Image</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- The loop happens here on the <tr> row tag -->
+                            <tr th:each="user : ${userList}">
+                                <td>
+                                    <!-- Displays the uploaded image dynamically -->
+                                    <img th:src="@{${user.profileImgPath}}" 
+                                         class="img-thumbnail" 
+                                         style="width: 60px; height: 60px; object-fit: cover;" 
+                                         alt="Profile">
+                                         
+                                         <img src="/upload/Screenshot (832).png" 
+                                         class="img-thumbnail" 
+                                         style="width: 60px; height: 60px; object-fit: cover;" 
+                                         alt="Profile">
+                                         
+                                </td>
+                                <td th:text="${user.profileImgPath}"></td>
+                                <td th:text="${user.userName}"></td>
+                                <td th:text="${user.userAge}"></td>
+                                <td th:text="${user.userAddress}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+
+</body>
+</html>
