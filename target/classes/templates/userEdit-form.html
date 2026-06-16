@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Edit User</title>
+
+<!-- Bootstrap 5 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+</head>
+
+<body>
+
+	<!-- NAVBAR -->
+	<nav th:replace="~{fragments/nav-bar :: nav-bar}"></nav>
+	
+	<h1>Hello World</h1>
+	<span th:text="${msg}"></span>
+
+	<div class="container mt-5">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-6">
+
+				<div class="card shadow border-0">
+
+					<div class="card-header bg-primary text-white text-center">
+						<h4>Edit User Profile</h4>
+					</div>
+
+					<div class="card-body">
+
+						<form th:action="@{/user/update}"
+						      th:object="${userObj}"
+						      method="post"
+						      enctype="multipart/form-data">
+
+							<!-- HIDDEN ID -->
+							<input type="hidden" th:field="*{userId}">
+
+							<!-- NAME -->
+							<div class="mb-3">
+
+								<label class="form-label">Name</label>
+
+								<input type="text"
+								       th:field="*{userName}"
+								       class="form-control"
+								       placeholder="Enter name">
+
+							</div>
+
+							<!-- EMAIL -->
+							<div class="mb-3">
+
+								<label class="form-label">Email</label>
+
+								<input type="email"
+								       th:field="*{userEmail}"
+								       class="form-control"
+								       placeholder="Enter email">
+
+							</div>
+
+							<!-- AGE -->
+							<div class="mb-3">
+
+								<label class="form-label">Age</label>
+
+								<input type="number"
+								       th:field="*{userAge}"
+								       class="form-control"
+								       placeholder="Enter age">
+
+							</div>
+
+							<!-- ADDRESS -->
+							<div class="mb-3">
+
+								<label class="form-label">Address</label>
+
+								<input type="text"
+								       th:field="*{userAddress}"
+								       class="form-control"
+								       placeholder="Enter address">
+
+							</div>
+
+							<!-- CURRENT IMAGE -->
+							<div class="mb-3 text-center">
+
+								<img th:src="@{${userObj.profileImgPath}}"
+								     class="rounded-circle"
+								     width="100"
+								     height="100">
+
+							</div>
+
+							<!-- NEW IMAGE -->
+							<div class="mb-3">
+
+								<label class="form-label">Change Profile Image</label>
+
+								<input type="file"
+								       name="editFile"
+								       
+								       class="form-control">
+								<span th:text=${fileError} class="text-danger"></span>
+
+							</div>
+
+							<!-- BUTTON -->
+							<div class="d-grid">
+
+								<button type="submit"
+								        class="btn btn-success">
+									Update User
+								</button>
+
+							</div>
+
+						</form>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<!-- Bootstrap JS -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+	</script>
+
+</body>
+
+</html>

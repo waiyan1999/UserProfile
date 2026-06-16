@@ -18,11 +18,12 @@ public class UserProfileRepository {
 	public int createUserProfile(UserProfileBean user) {
 		int result = 0;
 		
-		String sql = " insert into user_profile (name,age,address,p_img_name,p_img_type,p_img_path) values (?,?,?,?,?,?)";
+		String sql = " insert into user_profile (name,email,age,address,p_img_name,p_img_type,p_img_path) values (?,?,?,?,?,?,?)";
 		
 		result = jdbc.update(sql,
 					
 					user.getUserName(),
+					user.getUserEmail(),
 					user.getUserAge(),
 					user.getUserAddress(),
 					user.getProfileImgName(),
@@ -47,6 +48,7 @@ public class UserProfileRepository {
 						
 						rs.getInt("id"),
 						rs.getString("name"),
+						rs.getString("email"),
 						rs.getInt("age"),
 						rs.getString("address"),
 						rs.getString("p_img_name"),
@@ -58,6 +60,63 @@ public class UserProfileRepository {
 				);
 		
 		return userList;
+	}
+
+
+	public int deleteUserById(int userId) {
+		
+		int result = 0;
+		
+		String sql = " update user_profile set delete_flag=1 where id=?";
+		
+		result = jdbc.update(sql,userId);
+		
+		return result;
+		
+	}
+
+
+	public UserProfileBean getUserById(int userId) {
+		
+		String sql=" select * from user_profile where id=?";
+		
+		UserProfileBean user = jdbc.queryForObject(sql,
+					(rs,rowCount) -> new UserProfileBean(
+						
+							rs.getInt("id"),
+							rs.getString("name"),
+							rs.getString("email"),
+							rs.getInt("age"),
+							rs.getString("address"),
+							rs.getString("p_img_name"),
+							rs.getString("p_img_type"),
+							rs.getString("p_img_path")
+							),
+					userId
+					
+				);
+		
+		
+		return user;
+	}
+
+
+	public int updateUser(UserProfileBean user) {
+		int result =0 ;
+		String sql = " update user_profile set name=?,email=?,age=?,address=?,p_img_name=?,p_img_type=?,p_img_path=? where id=?";
+		
+		result = jdbc.update(sql,
+					user.getUserName(),
+					user.getUserEmail(),
+					user.getUserAge(),
+					user.getUserAddress(),
+					user.getProfileImgName(),
+					user.getProfileImgType(),
+					user.getProfileImgPath(),
+					user.getUserId()
+				);
+		
+		return result;
 	}
 	
 	
